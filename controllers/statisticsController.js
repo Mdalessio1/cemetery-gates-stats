@@ -3,7 +3,7 @@ const Statistics = require("../models/Statistics");
 const statisticsController = {
   getAllStatisticsName: async (req, res) => {
     try {
-      const statistics = await Statistics.find();
+      const statistics = await Statistics.find().sort({"score":-1}).limit(10);
       const statisticsArray = []
       statistics.forEach(e => statisticsArray.push(e.name))
       res.send( statisticsArray.toString() );
@@ -16,7 +16,7 @@ const statisticsController = {
   },
   getAllStatisticsScore: async (req, res) => {
     try {
-      const statistics = await Statistics.find();
+      const statistics = await Statistics.find().sort({"score":-1}).limit(10);
       const statisticsArray = []
       statistics.forEach(e => statisticsArray.push(e.score))
       res.send( statisticsArray.toString() );
@@ -29,7 +29,7 @@ const statisticsController = {
   },
   getAllStatisticsRank: async (req, res) => {
     try {
-      const statistics = await Statistics.find();
+      const statistics = await Statistics.find().sort({"score":-1}).limit(10);
       const statisticsArray = []
       statistics.forEach(e => statisticsArray.push(e.rank))
       res.send( statisticsArray.toString() );
@@ -43,7 +43,7 @@ const statisticsController = {
   addStatistic: async (req, res) => {
     const { name, score, rank } = req.query;
     try {
-      const statisticsToAdd = new Statistics({ name, score, rank});
+      const statisticsToAdd = new Statistics({ name: name.toLowerCase(), score, rank});
       await statisticsToAdd.save();
       res.json({ success: true, response: statisticsToAdd });
     } catch (error) {
