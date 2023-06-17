@@ -42,7 +42,7 @@ const statisticsController = {
   },
   addStatistic: async (req, res) => {
     const { name, score, rank } = req.query;
-    const formattedName = namestr.replace(/[^a-zA-Z0-9 ]/g, '').toLowerCase().charAt(0).toUpperCase() + name.slice(1)
+    const formattedName = name.replace(/[^a-zA-Z0-9 ]/g, '').toLowerCase().charAt(0).toUpperCase() + name.slice(1)
     try {
       const statisticsToAdd = new Statistics({ name: formattedName, score, rank});
       await statisticsToAdd.save();
