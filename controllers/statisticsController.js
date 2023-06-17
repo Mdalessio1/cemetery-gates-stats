@@ -42,8 +42,9 @@ const statisticsController = {
   },
   addStatistic: async (req, res) => {
     const { name, score, rank } = req.query;
+    const formattedName = name.toLowerCase().charAt(0).toUpperCase() + name.slice(1)
     try {
-      const statisticsToAdd = new Statistics({ name: name.toLowerCase(), score, rank});
+      const statisticsToAdd = new Statistics({ name: formattedName, score, rank});
       await statisticsToAdd.save();
       res.json({ success: true, response: statisticsToAdd });
     } catch (error) {
